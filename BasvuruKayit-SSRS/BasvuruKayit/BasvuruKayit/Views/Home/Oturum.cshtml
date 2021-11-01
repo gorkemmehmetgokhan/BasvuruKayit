@@ -1,0 +1,55 @@
+﻿@using BasvuruKayit.Veritabani
+@model IEnumerable<tbl_Kullanici>
+@{
+    ViewBag.Title = "Oturum";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+<link href="~/Content/GirisForm/css/style.css" rel="stylesheet" />
+
+<div class="form">
+    <ul class="tab-group">
+        <li class="tab active"></i><a href="#signup">Öğrenci Girişi</a></li>
+        <li class="tab"><a href="#login">Personel Girişi</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="signup">         
+            <form action="~/Home/Oturum" method="post">
+                <div class="field-wrap">
+                    <label>
+                        Öğrenci No<span class="req">*</span>
+                    </label>
+                    <input type="text" name="KullaniciAd" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Şifre<span class="req">*</span>
+                    </label>
+                    <input type="password" name="Sifre" required autocomplete="off" />
+                </div>
+                <input class="button button-block" type="submit" value="Giriş Yap"/>
+            </form>
+        </div>
+
+        <div id="login">  
+            <form action="~/Home/PersonelOturum" method="post">
+                <div class="field-wrap">
+                    <label>
+                        Kullanıcı Adı<span class="req">*</span>
+                    </label>
+                    <input type="text" name="KullaniciAd" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Şifre<span class="req">*</span>
+                    </label>
+                    <input type="password" name="Sifre" required autocomplete="off" />
+                </div>
+                <input class="button button-block" type="submit" value="Giriş Yap" />
+            </form>
+        </div>
+    </div><!-- tab-content -->
+</div> <!-- /form -->

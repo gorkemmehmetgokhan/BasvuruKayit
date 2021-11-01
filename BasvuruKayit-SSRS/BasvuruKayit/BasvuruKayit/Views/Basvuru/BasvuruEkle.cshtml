@@ -1,0 +1,97 @@
+﻿
+@using BasvuruKayit.Models.ViewModel
+@using BasvuruKayit.Veritabani
+
+@model BasvuruViewModel
+
+@{
+    ViewBag.Title = "Basvuru Yap";
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+}
+
+@using (Html.BeginForm("BasvuruEkle", "Basvuru", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="container-contact100">
+        <div class="wrap-contact100">
+            <form class="contact100-form validate-form">
+                <span class="contact100-form-title">
+                    Yaz Okulu Başvurusu
+                </span>
+                @Html.HiddenFor(model => model.Kullanici.KullaniciID)
+                @Html.HiddenFor(model => model.KullaniciRol.KullaniciRolID)
+                <div class="wrap-input100 validate-input bg1" data-validate="Lütfen Adınızı Giriniz">
+                    <span class="label-input100">Ad *</span>
+                    @Html.EditorFor(model => model.Birey.Ad, new { htmlAttributes = new { @class = "input100" , required = "required" } })
+                </div>
+                <div class="wrap-input100 validate-input bg1" data-validate="Lütfen Soyadınızı Giriniz">
+                    <span class="label-input100">Soyad *</span>
+                    @Html.EditorFor(model => model.Birey.Soyad, new { htmlAttributes = new { @class = "input100", required = "required" } })
+                </div>
+                <div class="wrap-input100 validate-input bg1" data-validate="Lütfen Öğrenci Numaranızı Giriniz">
+                    <span class="label-input100">Öğrenci No *</span>
+                    @Html.EditorFor(model => model.Ogrenci.OgrenciNo, new { htmlAttributes = new { @class = "input100", required = "required" } })
+                </div>
+                <div class="wrap-input100 validate-input bg1" data-validate="Lütfen TC Kimlik Numaranızı Giriniz">
+                    <span class="label-input100">TC Kimlik No *</span>
+                    @Html.EditorFor(model => model.Birey.KimlikNo, new { htmlAttributes = new { @class = "input100", required = "required" } })
+                </div>
+                <div class="wrap-input100 validate-input bg1" data-validate="Doğum Yeri">
+                    <span class="label-input100">Doğum Yeri *</span>
+                    @Html.EditorFor(model => model.Birey.DoğumYeri, new { htmlAttributes = new { @class = "input100", required = "required" } })
+                </div>
+                <div class="wrap-input100 validate-input bg1" data-validate="Doğum Tarihi">
+                    <span class="label-input100">Doğum Tarihi *</span>
+                    @Html.EditorFor(model => model.Birey.DoğumTarihi, new { htmlAttributes = new { @type = "date", @class = "input100" , required = "required" } })
+                </div>
+                <div class="wrap-input100 validate-input bg1">
+                    <span class="label-input100">Cinsiyet *</span>
+
+                    <div class="contact100-form-radio m-t-15">
+                        <input class="input-radio100" id="radio1" type="radio" name="sampleradio" value="Erkek" checked="checked">
+                        <label class="label-radio100" for="radio1">
+                            Erkek
+                        </label>
+                    </div>
+                    <div class="contact100-form-radio">
+                        <input class="input-radio100" id="radio2" type="radio" name="sampleradio" value="Kadın">
+                        <label class="label-radio100" for="radio2">
+                            Kadın
+                        </label>
+                    </div>
+                </div>
+
+                <div class="wrap-input100 validate-input bg1" data-validate="Lütfen Sınıfınızı Giriniz">
+                    <span class="label-input100">Sınıf *</span>
+                    @Html.EditorFor(model => model.Ogrenci.Sinif, new { htmlAttributes = new { @class = "input100", required = "required" } })
+                </div>
+              
+                <div class="wrap-input100 validate-input bg1">
+                    <span class="label-input100">Fotoğraf *</span>
+                    <input class="input100" type="file" name="foto" placeholder="Fotoğraf Seçiniz">
+                </div>
+
+                <div class="wrap-input100 validate-input bg1" data-validate="Email Adresinizi Giriniz">
+                    <span class="label-input100">Email *</span>                    
+                    @Html.EditorFor(model => model.Ogrenci.Email, new { htmlAttributes = new { @class = "input100", required = "required" } })
+                </div>
+            
+                <div class="wrap-input100 input100-select bg1">
+                    <span class="label-input100">Bölüm *</span>                   
+                    @Html.DropDownListFor(model => model.Ogrenci.BolumID, Model.BolumList, new { @class= "js-select2" })
+                    <div class="dropDownSelect2"></div>
+                 </div>
+
+                <div class="container-contact100-form-btn">
+                    <button class="contact100-form-btn" type="submit">
+                        <span>
+                            Kayıt Ol
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+

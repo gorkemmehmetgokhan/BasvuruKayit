@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsTranskript" targetNamespace="http://tempuri.org/dsTranskript.xsd" xmlns:mstns="http://tempuri.org/dsTranskript.xsd" xmlns="http://tempuri.org/dsTranskript.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="DB_UniversiteConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DB_UniversiteConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.DB_UniversiteConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsTranskript" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsTranskript" msprop:Generator_UserDSName="dsTranskript">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dsOgrenci" msprop:Generator_TableClassName="dsOgrenciDataTable" msprop:Generator_TableVarName="tabledsOgrenci" msprop:Generator_RowChangedName="dsOgrenciRowChanged" msprop:Generator_TablePropName="dsOgrenci" msprop:Generator_RowDeletingName="dsOgrenciRowDeleting" msprop:Generator_RowChangingName="dsOgrenciRowChanging" msprop:Generator_RowEvHandlerName="dsOgrenciRowChangeEventHandler" msprop:Generator_RowDeletedName="dsOgrenciRowDeleted" msprop:Generator_RowClassName="dsOgrenciRow" msprop:Generator_UserTableName="dsOgrenci" msprop:Generator_RowEvArgName="dsOgrenciRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OgrenciNo" msprop:Generator_ColumnVarNameInTable="columnOgrenciNo" msprop:Generator_ColumnPropNameInRow="OgrenciNo" msprop:Generator_ColumnPropNameInTable="OgrenciNoColumn" msprop:Generator_UserColumnName="OgrenciNo" type="xs:string" minOccurs="0" />
+              <xs:element name="Sinif" msprop:Generator_ColumnVarNameInTable="columnSinif" msprop:Generator_ColumnPropNameInRow="Sinif" msprop:Generator_ColumnPropNameInTable="SinifColumn" msprop:Generator_UserColumnName="Sinif" type="xs:string" minOccurs="0" />
+              <xs:element name="Email" msprop:Generator_ColumnVarNameInTable="columnEmail" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_UserColumnName="Email" type="xs:string" minOccurs="0" />
+              <xs:element name="OgrenciFoto" msprop:Generator_ColumnVarNameInTable="columnOgrenciFoto" msprop:Generator_ColumnPropNameInRow="OgrenciFoto" msprop:Generator_ColumnPropNameInTable="OgrenciFotoColumn" msprop:Generator_UserColumnName="OgrenciFoto" type="xs:string" minOccurs="0" />
+              <xs:element name="OgrAdSoyad" msprop:Generator_ColumnVarNameInTable="columnOgrAdSoyad" msprop:Generator_ColumnPropNameInRow="OgrAdSoyad" msprop:Generator_ColumnPropNameInTable="OgrAdSoyadColumn" msprop:Generator_UserColumnName="OgrAdSoyad" type="xs:string" minOccurs="0" />
+              <xs:element name="DoğumTarihi" msprop:Generator_ColumnVarNameInTable="columnDoğumTarihi" msprop:Generator_ColumnPropNameInRow="DoğumTarihi" msprop:Generator_ColumnPropNameInTable="DoğumTarihiColumn" msprop:Generator_UserColumnName="DoğumTarihi" type="xs:string" minOccurs="0" />
+              <xs:element name="DoğumYeri" msprop:Generator_ColumnVarNameInTable="columnDoğumYeri" msprop:Generator_ColumnPropNameInRow="DoğumYeri" msprop:Generator_ColumnPropNameInTable="DoğumYeriColumn" msprop:Generator_UserColumnName="DoğumYeri" type="xs:string" minOccurs="0" />
+              <xs:element name="DersAd" msprop:Generator_ColumnVarNameInTable="columnDersAd" msprop:Generator_ColumnPropNameInRow="DersAd" msprop:Generator_ColumnPropNameInTable="DersAdColumn" msprop:Generator_UserColumnName="DersAd" type="xs:string" minOccurs="0" />
+              <xs:element name="PrsAdSoyad" msprop:Generator_ColumnVarNameInTable="columnPrsAdSoyad" msprop:Generator_ColumnPropNameInRow="PrsAdSoyad" msprop:Generator_ColumnPropNameInTable="PrsAdSoyadColumn" msprop:Generator_UserColumnName="PrsAdSoyad" type="xs:string" minOccurs="0" />
+              <xs:element name="SinavNot" msprop:Generator_ColumnVarNameInTable="columnSinavNot" msprop:Generator_ColumnPropNameInRow="SinavNot" msprop:Generator_ColumnPropNameInTable="SinavNotColumn" msprop:Generator_UserColumnName="SinavNot" type="xs:string" minOccurs="0" />
+              <xs:element name="SinavTipAd" msprop:Generator_ColumnVarNameInTable="columnSinavTipAd" msprop:Generator_ColumnPropNameInRow="SinavTipAd" msprop:Generator_ColumnPropNameInTable="SinavTipAdColumn" msprop:Generator_UserColumnName="SinavTipAd" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

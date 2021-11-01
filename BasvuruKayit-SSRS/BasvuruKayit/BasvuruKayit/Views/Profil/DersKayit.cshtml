@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "DersKayit";
+    Layout = "~/Views/Shared/_ProfilLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery.js"></script>
+
+<table class="table" id="ders">
+    @if (Convert.ToInt32(Session["BasvuruDurumID"].ToString()) == 2)
+    {
+        <thead>
+            <tr>
+                <th>Ders Adı</th>
+            </tr>
+        </thead>
+    }
+    
+    <tbody></tbody>
+</table>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            DersListeYenile();
+        });
+
+        function DersListeYenile() {
+            $.ajax({
+                url: '/Profil/DersListele',
+                type: 'GET',
+                dataType: 'json',
+
+                success: function (data) {
+                    if (@Session["BasvuruDurumID"] == 2) {   
+
+                    $('#ders tbody').empty();
+
+                    $.each(data, function (i, item) {
+
+                            if (item.OgrenciDersID != null) {
+                                var rows = "<tr>" + "<td>" + item.DersAd + "</td>" + '<td><a href="#" class="btn btn-danger" onclick="return DersSil(' + item.OgrenciDersID + ')">Kayıt Sil' + "</tr>";
+                            }
+                            else {
+                                var rows = "<tr>" + "<td>" + item.DersAd + "</td>" + '<td><a href="#" class="btn btn-success" onclick="return DersKaydet(' + item.DersID + ')">Kaydol' + "</tr>";
+                            }
+                            $('#ders tbody').append(rows);
+                    });
+                    }
+                    else if (@Session["BasvuruDurumID"] == 3)
+                    {
+                        var rows = "<tr style='background-color:#FFA5A5'>" + "<td>" + 'Başvuru Reddedildi'  + "</td>" + "</tr>";
+                        $('#ders tbody').append(rows);
+                    }                   
+                }
+            });
+
+        }
+
+        function DersKaydet(dersID) {
+
+            var obj = {
+                dersID:dersID
+            };
+
+            $.ajax({
+                url: "/Profil/DersKaydet/",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (result) {
+
+                    DersListeYenile();
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        function DersSil(OgrenciDersID) {
+
+            var obj = {
+                OgrenciDersID: OgrenciDersID
+            };
+
+            $.ajax({
+                url: "/Profil/DersSil/",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (result) {
+
+                    DersListeYenile();
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+    </script>
+
+}

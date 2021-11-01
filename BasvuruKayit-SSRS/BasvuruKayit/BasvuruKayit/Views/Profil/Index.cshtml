@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_ProfilLayout.cshtml";
+}
+<script src="~/Scripts/jquery.js"></script>
+
+<table class="table" id="basvuru">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>Öğrenci No</th>
+            <th>TC Kimlik No</th>
+            <th>Bölüm</th>
+            <th>Sınıf</th>
+            <th>Başvuru Durumu</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+@section scripts{
+
+    <script type="text/javascript">
+      
+        $(document).ready(function () {       
+            BasvuruListeYenile();
+        });
+
+
+        function BasvuruListeYenile() {
+            $.ajax({
+                url: '/Profil/BasvuruListele',
+                type: 'GET',
+                dataType: 'json',
+                
+                success: function (data) {
+
+                    $('#basvuru tbody').empty();
+
+                    $.each(data, function (i, item) {
+
+                        if (item.BasvuruDurumID == 1) {
+                            var rows = "<tr>" + "<td>" + '<img width="100" height="100" src= "/Images/' + item.OgrenciFoto + '">' + "</td>" + "<td>" + item.Ad + "</td>" + "<td>" + item.Soyad + "</td>" + "<td>" + item.OgrenciNo + "</td>" + "<td>" + item.KimlikNo + "</td>" + "<td>" + item.BolumAd + "</td>" + "<td>" + item.Sinif + "</td>" + "<td>" + item.BasvuruDurumAd + "</td>" + '<td><a href="#" class="btn btn-success" onclick="return Onayla(' + item.OgrenciID + ')">Onayla</a> <a href="#" class="btn btn-danger" onclick="return Reddet(' + item.OgrenciID + ')">Reddet</a></td>' + "</tr>";
+                        }
+                        else if (item.BasvuruDurumID == 2) {
+                            var rows = "<tr style='background-color:#53FFBD'>" + "<td>" + '<img width="100" height="100" src= "/Images/' + item.OgrenciFoto + '">' + "</td>" + "<td>" + item.Ad + "</td>" + "<td>" + item.Soyad + "</td>" + "<td>" + item.OgrenciNo + "</td>" + "<td>" + item.KimlikNo + "</td>" + "<td>" + item.BolumAd + "</td>" + "<td>" + item.Sinif + "</td>" + "<td>" + item.BasvuruDurumAd + "</td>" + '<td><a href="#" class="btn btn-success" style="display:none" onclick="return Onayla(' + item.OgrenciID + ')">Onayla</a> <a href="#" class="btn btn-danger" onclick="return Reddet(' + item.OgrenciID + ')">Reddet</a></td>' + "</tr>";
+                        }
+                        else if (item.BasvuruDurumID == 3) {
+                            var rows = "<tr style='background-color:#FFA5A5'>" + "<td>" + '<img width="100" height="100" src= "/Images/' + item.OgrenciFoto + '">' + "</td>" + "<td>" + item.Ad + "</td>" + "<td>" + item.Soyad + "</td>" + "<td>" + item.OgrenciNo + "</td>" + "<td>" + item.KimlikNo + "</td>" + "<td>" + item.BolumAd + "</td>" + "<td>" + item.Sinif + "</td>" + "<td>" + item.BasvuruDurumAd + "</td>" + '<td><a href="#" class="btn btn-success" onclick="return Onayla(' + item.OgrenciID + ')">Onayla</a> <a href="#" class="btn btn-danger" style="display:none" onclick="return Reddet(' + item.OgrenciID + ')">Reddet</a></td>' + "</tr>";
+                        }
+                        $('#basvuru tbody').append(rows);
+                    });
+                }
+            });
+
+        }
+
+      
+        function Onayla(ogrenciID) {
+        
+                var obj = {
+                    ogrenciID: ogrenciID                    
+                };
+
+                $.ajax({
+                    url: "/Profil/Onayla/",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(obj),
+                    success: function (result) {
+                                           
+                        BasvuruListeYenile();
+                     
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });      
+        }
+
+
+        function Reddet(ogrenciID) {
+           
+                var obj = {
+                    ogrenciID: ogrenciID
+                };
+
+                $.ajax({
+                    url: "/Profil/Reddet/",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(obj),
+                    success: function (result) {
+                       
+                        BasvuruListeYenile();
+                    },
+                    error: function (errormessage) {
+                        alert(errormessage.responseText);
+                    }
+                });          
+        }
+
+    </script>
+
+}
+

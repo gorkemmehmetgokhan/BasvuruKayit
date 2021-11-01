@@ -1,0 +1,837 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_UniversiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbl_BasvuruDurum">
+          <Key>
+            <PropertyRef Name="BasvuruDurumID" />
+          </Key>
+          <Property Name="BasvuruDurumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BasvuruDurumAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Birey">
+          <Key>
+            <PropertyRef Name="BireyID" />
+            <PropertyRef Name="KimlikNo" />
+          </Key>
+          <Property Name="BireyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KimlikNo" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Ad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Soyad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cinsiyet" Type="tinyint" Nullable="false" />
+          <Property Name="DoğumTarihi" Type="date" Nullable="false" />
+          <Property Name="DoğumYeri" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Bolum">
+          <Key>
+            <PropertyRef Name="BolumID" />
+          </Key>
+          <Property Name="BolumID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BolumAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Ders">
+          <Key>
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="DersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DersAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BolumID" Type="smallint" Nullable="false" />
+          <Property Name="Sinif" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Kullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BireyID" Type="int" Nullable="false" />
+          <Property Name="KullaniciAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_KullaniciRol">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="KullaniciRolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" Nullable="false" />
+          <Property Name="RolID" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Ogrenci">
+          <Key>
+            <PropertyRef Name="BireyID" />
+            <PropertyRef Name="OgrenciNo" />
+          </Key>
+          <Property Name="OgrenciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BireyID" Type="int" Nullable="false" />
+          <Property Name="OgrenciNo" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="BolumID" Type="smallint" Nullable="false" />
+          <Property Name="BasvuruDurumID" Type="int" Nullable="false" />
+          <Property Name="OgrenciFoto" Type="nvarchar(max)" />
+          <Property Name="Sinif" Type="tinyint" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_OgrenciDers">
+          <Key>
+            <PropertyRef Name="OgrenciID" />
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="OgrenciDersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgrenciID" Type="int" Nullable="false" />
+          <Property Name="DersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Personel">
+          <Key>
+            <PropertyRef Name="BireyID" />
+            <PropertyRef Name="PersonelNo" />
+          </Key>
+          <Property Name="PersonelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BireyID" Type="int" Nullable="false" />
+          <Property Name="PersonelNo" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_PersonelDers">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="PersonelDersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonelID" Type="int" Nullable="false" />
+          <Property Name="DersID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Rol">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RolAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Sinav">
+          <Key>
+            <PropertyRef Name="SinavID" />
+          </Key>
+          <Property Name="SinavID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OgrenciDersID" Type="int" Nullable="false" />
+          <Property Name="SinavTipID" Type="tinyint" Nullable="false" />
+          <Property Name="SinavNot" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_SinavTip">
+          <Key>
+            <PropertyRef Name="SinavTipID" />
+          </Key>
+          <Property Name="SinavTipID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SinavTipAd" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tbl_Kullanici_tbl_Birey' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tbl_Kullanici_tbl_Birey" />-->
+        <Association Name="FK_tbl_KullaniciRol_tbl_Kullanici">
+          <End Role="tbl_Kullanici" Type="Self.tbl_Kullanici" Multiplicity="1" />
+          <End Role="tbl_KullaniciRol" Type="Self.tbl_KullaniciRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Kullanici">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="tbl_KullaniciRol">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_KullaniciRol_tbl_Rol">
+          <End Role="tbl_Rol" Type="Self.tbl_Rol" Multiplicity="1" />
+          <End Role="tbl_KullaniciRol" Type="Self.tbl_KullaniciRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="tbl_KullaniciRol">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ogrenci_tbl_BasvuruDurum">
+          <End Role="tbl_BasvuruDurum" Type="Self.tbl_BasvuruDurum" Multiplicity="1" />
+          <End Role="tbl_Ogrenci" Type="Self.tbl_Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_BasvuruDurum">
+              <PropertyRef Name="BasvuruDurumID" />
+            </Principal>
+            <Dependent Role="tbl_Ogrenci">
+              <PropertyRef Name="BasvuruDurumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tbl_Ogrenci_tbl_Birey' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tbl_Ogrenci_tbl_Birey" />-->
+        <Association Name="FK_tbl_Ogrenci_tbl_Bolum">
+          <End Role="tbl_Bolum" Type="Self.tbl_Bolum" Multiplicity="1" />
+          <End Role="tbl_Ogrenci" Type="Self.tbl_Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Bolum">
+              <PropertyRef Name="BolumID" />
+            </Principal>
+            <Dependent Role="tbl_Ogrenci">
+              <PropertyRef Name="BolumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_OgrenciDers_tbl_Ders">
+          <End Role="tbl_Ders" Type="Self.tbl_Ders" Multiplicity="1" />
+          <End Role="tbl_OgrenciDers" Type="Self.tbl_OgrenciDers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ders">
+              <PropertyRef Name="DersID" />
+            </Principal>
+            <Dependent Role="tbl_OgrenciDers">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tbl_Personel_tbl_Birey' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tbl_Personel_tbl_Birey" />-->
+        <Association Name="FK_tbl_PersonelDers_tbl_Ders">
+          <End Role="tbl_Ders" Type="Self.tbl_Ders" Multiplicity="1" />
+          <End Role="tbl_PersonelDers" Type="Self.tbl_PersonelDers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ders">
+              <PropertyRef Name="DersID" />
+            </Principal>
+            <Dependent Role="tbl_PersonelDers">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tbl_PersonelDers_tbl_Personel' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tbl_PersonelDers_tbl_Personel" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_tbl_Sinav_tbl_OgrenciDers' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_tbl_Sinav_tbl_OgrenciDers" />-->
+        <Association Name="FK_tbl_Sinav_tbl_SinavTip">
+          <End Role="tbl_SinavTip" Type="Self.tbl_SinavTip" Multiplicity="1" />
+          <End Role="tbl_Sinav" Type="Self.tbl_Sinav" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SinavTip">
+              <PropertyRef Name="SinavTipID" />
+            </Principal>
+            <Dependent Role="tbl_Sinav">
+              <PropertyRef Name="SinavTipID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sproc_Birey_ListByOgrenciID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OgrenciID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_DersKayit_ListByOgrenciID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OgrenciID" Type="int" Mode="In" />
+          <Parameter Name="Sinif" Type="tinyint" Mode="In" />
+          <Parameter Name="BolumID" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="sproc_OgrenciDers_ListByOgrenciID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OgrenciID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_SinavNot_ListByDersID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DersID" Type="smallint" Mode="In" />
+        </Function>
+        <EntityContainer Name="DB_UniversiteModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_BasvuruDurum" EntityType="Self.tbl_BasvuruDurum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Birey" EntityType="Self.tbl_Birey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Bolum" EntityType="Self.tbl_Bolum" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Ders" EntityType="Self.tbl_Ders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Kullanici" EntityType="Self.tbl_Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_KullaniciRol" EntityType="Self.tbl_KullaniciRol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Ogrenci" EntityType="Self.tbl_Ogrenci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_OgrenciDers" EntityType="Self.tbl_OgrenciDers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Personel" EntityType="Self.tbl_Personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_PersonelDers" EntityType="Self.tbl_PersonelDers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Rol" EntityType="Self.tbl_Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Sinav" EntityType="Self.tbl_Sinav" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_SinavTip" EntityType="Self.tbl_SinavTip" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_KullaniciRol_tbl_Kullanici" Association="Self.FK_tbl_KullaniciRol_tbl_Kullanici">
+            <End Role="tbl_Kullanici" EntitySet="tbl_Kullanici" />
+            <End Role="tbl_KullaniciRol" EntitySet="tbl_KullaniciRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_KullaniciRol_tbl_Rol" Association="Self.FK_tbl_KullaniciRol_tbl_Rol">
+            <End Role="tbl_Rol" EntitySet="tbl_Rol" />
+            <End Role="tbl_KullaniciRol" EntitySet="tbl_KullaniciRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ogrenci_tbl_BasvuruDurum" Association="Self.FK_tbl_Ogrenci_tbl_BasvuruDurum">
+            <End Role="tbl_BasvuruDurum" EntitySet="tbl_BasvuruDurum" />
+            <End Role="tbl_Ogrenci" EntitySet="tbl_Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ogrenci_tbl_Bolum" Association="Self.FK_tbl_Ogrenci_tbl_Bolum">
+            <End Role="tbl_Bolum" EntitySet="tbl_Bolum" />
+            <End Role="tbl_Ogrenci" EntitySet="tbl_Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OgrenciDers_tbl_Ders" Association="Self.FK_tbl_OgrenciDers_tbl_Ders">
+            <End Role="tbl_Ders" EntitySet="tbl_Ders" />
+            <End Role="tbl_OgrenciDers" EntitySet="tbl_OgrenciDers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PersonelDers_tbl_Ders" Association="Self.FK_tbl_PersonelDers_tbl_Ders">
+            <End Role="tbl_Ders" EntitySet="tbl_Ders" />
+            <End Role="tbl_PersonelDers" EntitySet="tbl_PersonelDers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Sinav_tbl_SinavTip" Association="Self.FK_tbl_Sinav_tbl_SinavTip">
+            <End Role="tbl_SinavTip" EntitySet="tbl_SinavTip" />
+            <End Role="tbl_Sinav" EntitySet="tbl_Sinav" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_UniversiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_BasvuruDurum">
+          <Key>
+            <PropertyRef Name="BasvuruDurumID" />
+          </Key>
+          <Property Name="BasvuruDurumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BasvuruDurumAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_Ogrenci" Relationship="Self.FK_tbl_Ogrenci_tbl_BasvuruDurum" FromRole="tbl_BasvuruDurum" ToRole="tbl_Ogrenci" />
+        </EntityType>
+        <EntityType Name="tbl_Birey">
+          <Key>
+            <PropertyRef Name="BireyID" />
+            <PropertyRef Name="KimlikNo" />
+          </Key>
+          <Property Name="BireyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KimlikNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cinsiyet" Type="Byte" Nullable="false" />
+          <Property Name="DoğumTarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DoğumYeri" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_Bolum">
+          <Key>
+            <PropertyRef Name="BolumID" />
+          </Key>
+          <Property Name="BolumID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BolumAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_Ogrenci" Relationship="Self.FK_tbl_Ogrenci_tbl_Bolum" FromRole="tbl_Bolum" ToRole="tbl_Ogrenci" />
+        </EntityType>
+        <EntityType Name="tbl_Ders">
+          <Key>
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="DersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DersAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BolumID" Type="Int16" Nullable="false" />
+          <Property Name="Sinif" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tbl_OgrenciDers" Relationship="Self.FK_tbl_OgrenciDers_tbl_Ders" FromRole="tbl_Ders" ToRole="tbl_OgrenciDers" />
+          <NavigationProperty Name="tbl_PersonelDers" Relationship="Self.FK_tbl_PersonelDers_tbl_Ders" FromRole="tbl_Ders" ToRole="tbl_PersonelDers" />
+        </EntityType>
+        <EntityType Name="tbl_Kullanici">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BireyID" Type="Int32" Nullable="false" />
+          <Property Name="KullaniciAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_KullaniciRol" Relationship="Self.FK_tbl_KullaniciRol_tbl_Kullanici" FromRole="tbl_Kullanici" ToRole="tbl_KullaniciRol" />
+        </EntityType>
+        <EntityType Name="tbl_KullaniciRol">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="KullaniciRolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="RolID" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="tbl_Kullanici" Relationship="Self.FK_tbl_KullaniciRol_tbl_Kullanici" FromRole="tbl_KullaniciRol" ToRole="tbl_Kullanici" />
+          <NavigationProperty Name="tbl_Rol" Relationship="Self.FK_tbl_KullaniciRol_tbl_Rol" FromRole="tbl_KullaniciRol" ToRole="tbl_Rol" />
+        </EntityType>
+        <EntityType Name="tbl_Ogrenci">
+          <Key>
+            <PropertyRef Name="BireyID" />
+            <PropertyRef Name="OgrenciNo" />
+          </Key>
+          <Property Name="OgrenciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BireyID" Type="Int32" Nullable="false" />
+          <Property Name="OgrenciNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BolumID" Type="Int16" Nullable="false" />
+          <Property Name="BasvuruDurumID" Type="Int32" Nullable="false" />
+          <Property Name="OgrenciFoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sinif" Type="Byte" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_BasvuruDurum" Relationship="Self.FK_tbl_Ogrenci_tbl_BasvuruDurum" FromRole="tbl_Ogrenci" ToRole="tbl_BasvuruDurum" />
+          <NavigationProperty Name="tbl_Bolum" Relationship="Self.FK_tbl_Ogrenci_tbl_Bolum" FromRole="tbl_Ogrenci" ToRole="tbl_Bolum" />
+        </EntityType>
+        <EntityType Name="tbl_OgrenciDers">
+          <Key>
+            <PropertyRef Name="OgrenciID" />
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="OgrenciDersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgrenciID" Type="Int32" Nullable="false" />
+          <Property Name="DersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Ders" Relationship="Self.FK_tbl_OgrenciDers_tbl_Ders" FromRole="tbl_OgrenciDers" ToRole="tbl_Ders" />
+        </EntityType>
+        <EntityType Name="tbl_Personel">
+          <Key>
+            <PropertyRef Name="BireyID" />
+            <PropertyRef Name="PersonelNo" />
+          </Key>
+          <Property Name="PersonelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BireyID" Type="Int32" Nullable="false" />
+          <Property Name="PersonelNo" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_PersonelDers">
+          <Key>
+            <PropertyRef Name="PersonelID" />
+            <PropertyRef Name="DersID" />
+          </Key>
+          <Property Name="PersonelDersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonelID" Type="Int32" Nullable="false" />
+          <Property Name="DersID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_Ders" Relationship="Self.FK_tbl_PersonelDers_tbl_Ders" FromRole="tbl_PersonelDers" ToRole="tbl_Ders" />
+        </EntityType>
+        <EntityType Name="tbl_Rol">
+          <Key>
+            <PropertyRef Name="RolID" />
+          </Key>
+          <Property Name="RolID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RolAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_KullaniciRol" Relationship="Self.FK_tbl_KullaniciRol_tbl_Rol" FromRole="tbl_Rol" ToRole="tbl_KullaniciRol" />
+        </EntityType>
+        <EntityType Name="tbl_Sinav">
+          <Key>
+            <PropertyRef Name="SinavID" />
+          </Key>
+          <Property Name="SinavID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OgrenciDersID" Type="Int32" Nullable="false" />
+          <Property Name="SinavTipID" Type="Byte" Nullable="false" />
+          <Property Name="SinavNot" Type="Double" Nullable="false" />
+          <NavigationProperty Name="tbl_SinavTip" Relationship="Self.FK_tbl_Sinav_tbl_SinavTip" FromRole="tbl_Sinav" ToRole="tbl_SinavTip" />
+        </EntityType>
+        <EntityType Name="tbl_SinavTip">
+          <Key>
+            <PropertyRef Name="SinavTipID" />
+          </Key>
+          <Property Name="SinavTipID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SinavTipAd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_Sinav" Relationship="Self.FK_tbl_Sinav_tbl_SinavTip" FromRole="tbl_SinavTip" ToRole="tbl_Sinav" />
+        </EntityType>
+        <Association Name="FK_tbl_Ogrenci_tbl_BasvuruDurum">
+          <End Role="tbl_BasvuruDurum" Type="Self.tbl_BasvuruDurum" Multiplicity="1" />
+          <End Role="tbl_Ogrenci" Type="Self.tbl_Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_BasvuruDurum">
+              <PropertyRef Name="BasvuruDurumID" />
+            </Principal>
+            <Dependent Role="tbl_Ogrenci">
+              <PropertyRef Name="BasvuruDurumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Ogrenci_tbl_Bolum">
+          <End Role="tbl_Bolum" Type="Self.tbl_Bolum" Multiplicity="1" />
+          <End Role="tbl_Ogrenci" Type="Self.tbl_Ogrenci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Bolum">
+              <PropertyRef Name="BolumID" />
+            </Principal>
+            <Dependent Role="tbl_Ogrenci">
+              <PropertyRef Name="BolumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_OgrenciDers_tbl_Ders">
+          <End Role="tbl_Ders" Type="Self.tbl_Ders" Multiplicity="1" />
+          <End Role="tbl_OgrenciDers" Type="Self.tbl_OgrenciDers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ders">
+              <PropertyRef Name="DersID" />
+            </Principal>
+            <Dependent Role="tbl_OgrenciDers">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PersonelDers_tbl_Ders">
+          <End Role="tbl_Ders" Type="Self.tbl_Ders" Multiplicity="1" />
+          <End Role="tbl_PersonelDers" Type="Self.tbl_PersonelDers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Ders">
+              <PropertyRef Name="DersID" />
+            </Principal>
+            <Dependent Role="tbl_PersonelDers">
+              <PropertyRef Name="DersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_KullaniciRol_tbl_Kullanici">
+          <End Role="tbl_Kullanici" Type="Self.tbl_Kullanici" Multiplicity="1" />
+          <End Role="tbl_KullaniciRol" Type="Self.tbl_KullaniciRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Kullanici">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="tbl_KullaniciRol">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_KullaniciRol_tbl_Rol">
+          <End Role="tbl_Rol" Type="Self.tbl_Rol" Multiplicity="1" />
+          <End Role="tbl_KullaniciRol" Type="Self.tbl_KullaniciRol" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Rol">
+              <PropertyRef Name="RolID" />
+            </Principal>
+            <Dependent Role="tbl_KullaniciRol">
+              <PropertyRef Name="RolID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Sinav_tbl_SinavTip">
+          <End Role="tbl_SinavTip" Type="Self.tbl_SinavTip" Multiplicity="1" />
+          <End Role="tbl_Sinav" Type="Self.tbl_Sinav" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_SinavTip">
+              <PropertyRef Name="SinavTipID" />
+            </Principal>
+            <Dependent Role="tbl_Sinav">
+              <PropertyRef Name="SinavTipID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_UniversiteEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="tbl_BasvuruDurum" EntityType="Self.tbl_BasvuruDurum" />
+          <EntitySet Name="tbl_Birey" EntityType="Self.tbl_Birey" />
+          <EntitySet Name="tbl_Bolum" EntityType="Self.tbl_Bolum" />
+          <EntitySet Name="tbl_Ders" EntityType="Self.tbl_Ders" />
+          <EntitySet Name="tbl_Kullanici" EntityType="Self.tbl_Kullanici" />
+          <EntitySet Name="tbl_KullaniciRol" EntityType="Self.tbl_KullaniciRol" />
+          <EntitySet Name="tbl_Ogrenci" EntityType="Self.tbl_Ogrenci" />
+          <EntitySet Name="tbl_OgrenciDers" EntityType="Self.tbl_OgrenciDers" />
+          <EntitySet Name="tbl_Personel" EntityType="Self.tbl_Personel" />
+          <EntitySet Name="tbl_PersonelDers" EntityType="Self.tbl_PersonelDers" />
+          <EntitySet Name="tbl_Rol" EntityType="Self.tbl_Rol" />
+          <EntitySet Name="tbl_Sinav" EntityType="Self.tbl_Sinav" />
+          <EntitySet Name="tbl_SinavTip" EntityType="Self.tbl_SinavTip" />
+          <AssociationSet Name="FK_tbl_Ogrenci_tbl_BasvuruDurum" Association="Self.FK_tbl_Ogrenci_tbl_BasvuruDurum">
+            <End Role="tbl_BasvuruDurum" EntitySet="tbl_BasvuruDurum" />
+            <End Role="tbl_Ogrenci" EntitySet="tbl_Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Ogrenci_tbl_Bolum" Association="Self.FK_tbl_Ogrenci_tbl_Bolum">
+            <End Role="tbl_Bolum" EntitySet="tbl_Bolum" />
+            <End Role="tbl_Ogrenci" EntitySet="tbl_Ogrenci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_OgrenciDers_tbl_Ders" Association="Self.FK_tbl_OgrenciDers_tbl_Ders">
+            <End Role="tbl_Ders" EntitySet="tbl_Ders" />
+            <End Role="tbl_OgrenciDers" EntitySet="tbl_OgrenciDers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PersonelDers_tbl_Ders" Association="Self.FK_tbl_PersonelDers_tbl_Ders">
+            <End Role="tbl_Ders" EntitySet="tbl_Ders" />
+            <End Role="tbl_PersonelDers" EntitySet="tbl_PersonelDers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_KullaniciRol_tbl_Kullanici" Association="Self.FK_tbl_KullaniciRol_tbl_Kullanici">
+            <End Role="tbl_Kullanici" EntitySet="tbl_Kullanici" />
+            <End Role="tbl_KullaniciRol" EntitySet="tbl_KullaniciRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_KullaniciRol_tbl_Rol" Association="Self.FK_tbl_KullaniciRol_tbl_Rol">
+            <End Role="tbl_Rol" EntitySet="tbl_Rol" />
+            <End Role="tbl_KullaniciRol" EntitySet="tbl_KullaniciRol" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Sinav_tbl_SinavTip" Association="Self.FK_tbl_Sinav_tbl_SinavTip">
+            <End Role="tbl_SinavTip" EntitySet="tbl_SinavTip" />
+            <End Role="tbl_Sinav" EntitySet="tbl_Sinav" />
+          </AssociationSet>
+          <FunctionImport Name="sproc_Birey_ListByOgrenciID" ReturnType="Collection(DB_UniversiteModel.sproc_Birey_ListByOgrenciID_Result)">
+            <Parameter Name="OgrenciID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_DersKayit_ListByOgrenciID" ReturnType="Collection(DB_UniversiteModel.sproc_DersKayit_ListByOgrenciID_Result)">
+            <Parameter Name="OgrenciID" Mode="In" Type="Int32" />
+            <Parameter Name="Sinif" Mode="In" Type="Byte" />
+            <Parameter Name="BolumID" Mode="In" Type="Int16" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_OgrenciDers_ListByOgrenciID" ReturnType="Collection(DB_UniversiteModel.sproc_OgrenciDers_ListByOgrenciID_Result)">
+            <Parameter Name="OgrenciID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sproc_SinavNot_ListByDersID" ReturnType="Collection(DB_UniversiteModel.sproc_SinavNot_ListByDersID_Result)">
+            <Parameter Name="DersID" Mode="In" Type="Int16" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sproc_Birey_ListByOgrenciID_Result">
+          <Property Type="String" Name="OgrenciNo" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="OgrenciFoto" Nullable="true" />
+          <Property Type="Byte" Name="Sinif" Nullable="false" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Ad" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Soyad" Nullable="true" MaxLength="50" />
+          <Property Type="Byte" Name="Cinsiyet" Nullable="true" />
+          <Property Type="DateTime" Name="DoğumTarihi" Nullable="true" />
+          <Property Type="String" Name="DoğumYeri" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="KimlikNo" Nullable="true" MaxLength="11" />
+        </ComplexType>
+        <ComplexType Name="sproc_DersKayit_ListByOgrenciID_Result">
+          <Property Type="Int32" Name="DersID" Nullable="false" />
+          <Property Type="String" Name="DersAd" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="BolumID" Nullable="false" />
+          <Property Type="Byte" Name="Sinif" Nullable="false" />
+          <Property Type="Int32" Name="OgrenciDersID" Nullable="true" />
+          <Property Type="Int32" Name="OgrenciID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sproc_OgrenciDers_ListByOgrenciID_Result">
+          <Property Type="String" Name="DersAd" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="AdSoyad" Nullable="true" MaxLength="101" />
+          <Property Type="Double" Name="SinavNot" Nullable="true" />
+          <Property Type="String" Name="SinavTipAd" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sproc_SinavNot_ListByDersID_Result">
+          <Property Type="Int32" Name="OgrenciID" Nullable="true" />
+          <Property Type="String" Name="OgrenciFoto" Nullable="true" />
+          <Property Type="String" Name="AdSoyad" Nullable="true" MaxLength="101" />
+          <Property Type="Byte" Name="Sinif" Nullable="true" />
+          <Property Type="Int32" Name="DersID" Nullable="true" />
+          <Property Type="String" Name="DersAd" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="OgrenciDersID" Nullable="true" />
+          <Property Type="Int32" Name="OgrenciDersID_Secilen" Nullable="false" />
+          <Property Type="String" Name="SinavNot" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_UniversiteModelStoreContainer" CdmEntityContainer="DB_UniversiteEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_BasvuruDurum">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_BasvuruDurum">
+              <MappingFragment StoreEntitySet="tbl_BasvuruDurum">
+                <ScalarProperty Name="BasvuruDurumID" ColumnName="BasvuruDurumID" />
+                <ScalarProperty Name="BasvuruDurumAd" ColumnName="BasvuruDurumAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Birey">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Birey">
+              <MappingFragment StoreEntitySet="tbl_Birey">
+                <ScalarProperty Name="BireyID" ColumnName="BireyID" />
+                <ScalarProperty Name="KimlikNo" ColumnName="KimlikNo" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
+                <ScalarProperty Name="DoğumTarihi" ColumnName="DoğumTarihi" />
+                <ScalarProperty Name="DoğumYeri" ColumnName="DoğumYeri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Bolum">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Bolum">
+              <MappingFragment StoreEntitySet="tbl_Bolum">
+                <ScalarProperty Name="BolumID" ColumnName="BolumID" />
+                <ScalarProperty Name="BolumAd" ColumnName="BolumAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Ders">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Ders">
+              <MappingFragment StoreEntitySet="tbl_Ders">
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+                <ScalarProperty Name="DersAd" ColumnName="DersAd" />
+                <ScalarProperty Name="BolumID" ColumnName="BolumID" />
+                <ScalarProperty Name="Sinif" ColumnName="Sinif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Kullanici">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Kullanici">
+              <MappingFragment StoreEntitySet="tbl_Kullanici">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="BireyID" ColumnName="BireyID" />
+                <ScalarProperty Name="KullaniciAd" ColumnName="KullaniciAd" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_KullaniciRol">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_KullaniciRol">
+              <MappingFragment StoreEntitySet="tbl_KullaniciRol">
+                <ScalarProperty Name="KullaniciRolID" ColumnName="KullaniciRolID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Ogrenci">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Ogrenci">
+              <MappingFragment StoreEntitySet="tbl_Ogrenci">
+                <ScalarProperty Name="OgrenciID" ColumnName="OgrenciID" />
+                <ScalarProperty Name="BireyID" ColumnName="BireyID" />
+                <ScalarProperty Name="OgrenciNo" ColumnName="OgrenciNo" />
+                <ScalarProperty Name="BolumID" ColumnName="BolumID" />
+                <ScalarProperty Name="BasvuruDurumID" ColumnName="BasvuruDurumID" />
+                <ScalarProperty Name="OgrenciFoto" ColumnName="OgrenciFoto" />
+                <ScalarProperty Name="Sinif" ColumnName="Sinif" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_OgrenciDers">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_OgrenciDers">
+              <MappingFragment StoreEntitySet="tbl_OgrenciDers">
+                <ScalarProperty Name="OgrenciDersID" ColumnName="OgrenciDersID" />
+                <ScalarProperty Name="OgrenciID" ColumnName="OgrenciID" />
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Personel">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Personel">
+              <MappingFragment StoreEntitySet="tbl_Personel">
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="BireyID" ColumnName="BireyID" />
+                <ScalarProperty Name="PersonelNo" ColumnName="PersonelNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PersonelDers">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_PersonelDers">
+              <MappingFragment StoreEntitySet="tbl_PersonelDers">
+                <ScalarProperty Name="PersonelDersID" ColumnName="PersonelDersID" />
+                <ScalarProperty Name="PersonelID" ColumnName="PersonelID" />
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Rol">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Rol">
+              <MappingFragment StoreEntitySet="tbl_Rol">
+                <ScalarProperty Name="RolID" ColumnName="RolID" />
+                <ScalarProperty Name="RolAd" ColumnName="RolAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Sinav">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_Sinav">
+              <MappingFragment StoreEntitySet="tbl_Sinav">
+                <ScalarProperty Name="SinavID" ColumnName="SinavID" />
+                <ScalarProperty Name="OgrenciDersID" ColumnName="OgrenciDersID" />
+                <ScalarProperty Name="SinavTipID" ColumnName="SinavTipID" />
+                <ScalarProperty Name="SinavNot" ColumnName="SinavNot" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_SinavTip">
+            <EntityTypeMapping TypeName="DB_UniversiteModel.tbl_SinavTip">
+              <MappingFragment StoreEntitySet="tbl_SinavTip">
+                <ScalarProperty Name="SinavTipID" ColumnName="SinavTipID" />
+                <ScalarProperty Name="SinavTipAd" ColumnName="SinavTipAd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sproc_Birey_ListByOgrenciID" FunctionName="DB_UniversiteModel.Store.sproc_Birey_ListByOgrenciID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_UniversiteModel.sproc_Birey_ListByOgrenciID_Result">
+                <ScalarProperty Name="OgrenciNo" ColumnName="OgrenciNo" />
+                <ScalarProperty Name="OgrenciFoto" ColumnName="OgrenciFoto" />
+                <ScalarProperty Name="Sinif" ColumnName="Sinif" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Soyad" ColumnName="Soyad" />
+                <ScalarProperty Name="Cinsiyet" ColumnName="Cinsiyet" />
+                <ScalarProperty Name="DoğumTarihi" ColumnName="DoğumTarihi" />
+                <ScalarProperty Name="DoğumYeri" ColumnName="DoğumYeri" />
+                <ScalarProperty Name="KimlikNo" ColumnName="KimlikNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_DersKayit_ListByOgrenciID" FunctionName="DB_UniversiteModel.Store.sproc_DersKayit_ListByOgrenciID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_UniversiteModel.sproc_DersKayit_ListByOgrenciID_Result">
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+                <ScalarProperty Name="DersAd" ColumnName="DersAd" />
+                <ScalarProperty Name="BolumID" ColumnName="BolumID" />
+                <ScalarProperty Name="Sinif" ColumnName="Sinif" />
+                <ScalarProperty Name="OgrenciDersID" ColumnName="OgrenciDersID" />
+                <ScalarProperty Name="OgrenciID" ColumnName="OgrenciID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_OgrenciDers_ListByOgrenciID" FunctionName="DB_UniversiteModel.Store.sproc_OgrenciDers_ListByOgrenciID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_UniversiteModel.sproc_OgrenciDers_ListByOgrenciID_Result">
+                <ScalarProperty Name="DersAd" ColumnName="DersAd" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="SinavNot" ColumnName="SinavNot" />
+                <ScalarProperty Name="SinavTipAd" ColumnName="SinavTipAd" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sproc_SinavNot_ListByDersID" FunctionName="DB_UniversiteModel.Store.sproc_SinavNot_ListByDersID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_UniversiteModel.sproc_SinavNot_ListByDersID_Result">
+                <ScalarProperty Name="OgrenciID" ColumnName="OgrenciID" />
+                <ScalarProperty Name="OgrenciFoto" ColumnName="OgrenciFoto" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Sinif" ColumnName="Sinif" />
+                <ScalarProperty Name="DersID" ColumnName="DersID" />
+                <ScalarProperty Name="DersAd" ColumnName="DersAd" />
+                <ScalarProperty Name="OgrenciDersID" ColumnName="OgrenciDersID" />
+                <ScalarProperty Name="OgrenciDersID_Secilen" ColumnName="OgrenciDersID_Secilen" />
+                <ScalarProperty Name="SinavNot" ColumnName="SinavNot" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

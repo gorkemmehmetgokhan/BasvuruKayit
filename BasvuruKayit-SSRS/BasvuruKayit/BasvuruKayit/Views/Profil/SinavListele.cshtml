@@ -1,0 +1,188 @@
+﻿
+@{
+    ViewBag.Title = "SinavListele";
+    Layout = "~/Views/Shared/_ProfilLayout.cshtml";
+}
+
+@{TempData["DersListesi"] = ViewBag.DersListesi;}
+
+@{TempData["Liste"] = ViewBag.Liste;}
+
+<script src="~/Scripts/jquery.js"></script>
+
+<button class="btn btn-primary" style="display: none;" id="btnGeri">Geri Dön</button>
+<table class="table" id="ders">
+    <thead>
+        <tr>
+            <th>Ders Adı</th>
+        </tr>
+    </thead>
+    @foreach (var item in ViewBag.DersListesi)
+    {
+        <tr>
+            <td>@item.DersAd</td>
+            <td>
+                <a href="#" onclick="return OgrenciListele(@item.DersID)" id="btnDers" class="btn btn-success">Not Ver</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<table class="table" id="ogrenci">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Ad Soyad</th>
+            <th>Sınıf</th>
+            <th>Ders Adı</th>
+            <th>Vize Notu</th>
+            <th>Final Notu</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#ders").show();
+            $("#ogrenci").hide();
+            
+            $("#btnGeri").click(function () {
+
+                $("#ders").show();
+                $("#ogrenci").hide();
+                $("#btnGeri").hide();
+            });
+        });
+
+        function OgrenciListele(DersID) {
+
+            $("#ders").hide();
+            $("#ogrenci").show();
+            $("#btnGeri").show();
+
+            var obj = {
+                DersID: DersID
+            };
+
+            $.ajax({
+                url: "/Profil/OgrenciListeleme/",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (data) {
+
+                    $('#ogrenci tbody').empty();
+
+                    $.each(data, function (i, item) {
+
+                        if (item.OgrenciDersID != null) {
+
+                            var not = item.SinavNot.split('-');
+                            var rows = "<tr style='background-color:#53FFBD'>" + "<td>" + '<img width="75" height="75" src= "/Images/' +
+                                item.OgrenciFoto + '">' + "</td>" + "<td>" + item.AdSoyad + "</td>" + "<td>" +
+                                item.Sinif + "</td>" + "<td>" + item.DersAd + "<td>" +
+                                '<input type="number" min="0" max="100" value="' + not[0] + '"  id="vize1" />' +
+                                "</td>" + "</td>" + "<td>" + '<input type="number" min="0" max="100" value="' + not[1] + '" id="final1" />' + "</td>" +
+                                "</td>" + '<td><a href="#" class="btn btn-success" onclick="return OgrenciNotGuncelle(' + item.OgrenciDersID_Secilen + ',' + item.DersID + ')">Not Güncelle</a> <a href="#" class="btn btn-success" onclick="return OgrenciNotSil(' + item.OgrenciDersID_Secilen + ',' + item.DersID + ')">Not Sil</a></td>' + "</tr>";
+
+                            $('#ogrenci tbody').append(rows);
+                        }
+                        else {
+
+                            var rows = "<tr>" + "<td>" + '<img width="75" height="75" src= "/Images/' +
+                                item.OgrenciFoto + '">' + "</td>" + "<td>" + item.AdSoyad + "</td>" + "<td>" +
+                                item.Sinif + "</td>" + "<td>" + item.DersAd + "<td>" +
+                                '<input type="number" min="0" max="100"  id="vize_' + item.OgrenciID + '" />' +
+                                "</td>" + "</td>" + "<td>" + '<input type="number" min="0" max="100"  id="final_' + item.OgrenciID + '" />' + "</td>" +
+                                "</td>" + '<td><a href="#" class="btn btn-success" onclick="return OgrenciNotVer(' + item.OgrenciDersID_Secilen + ',' + item.OgrenciID + ',' + item.DersID + ')">Not Ver</a></td>' + "</tr>";
+
+                            $('#ogrenci tbody').append(rows);
+                        }
+                    });
+
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        function OgrenciNotVer(OgrenciDersID_Secilen, OgrenciID, DersID) {
+
+            var obj = {
+                vize: $('#vize_' + OgrenciID).val(),
+                final: $('#final_' + OgrenciID).val(),
+                OgrenciDersID_Secilen: OgrenciDersID_Secilen
+            };
+
+            $.ajax({
+                url: "/Profil/NotVer/",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (success) {
+
+                    OgrenciListele(DersID);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        function OgrenciNotGuncelle(OgrenciDersID_Secilen, DersID) {
+
+            var obj = {
+                vize: $('#vize1').val(),
+                final: $('#final1').val(),
+                OgrenciDersID_Secilen: OgrenciDersID_Secilen
+            };
+
+            $.ajax({
+                url: "/Profil/OgrenciNotGuncelle/",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (success) {
+
+                    OgrenciListele(DersID);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+        function OgrenciNotSil(OgrenciDersID_Secilen, DersID) {
+
+            var obj = {
+                OgrenciDersID_Secilen: OgrenciDersID_Secilen
+            };
+
+            $.ajax({
+                url: "/Profil/OgrenciNotSil/",
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(obj),
+                success: function (success) {
+
+                    OgrenciListele(DersID);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+    </script>
+
+}
